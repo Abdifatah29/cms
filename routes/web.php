@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -58,3 +59,29 @@ Route::get('/required/{id}', function($id)
 {
     return 'Id: ' . $id;
 });
+
+
+/**
+ * Naming routes
+ */
+
+ Route::get('/admin/posts');
+
+
+/**
+ * 
+ * using Controllers with Routes
+ * 
+ */
+
+ Route::get('/test/{postId}', [PostController::class, 'index']);
+
+
+
+ /**
+  * 
+  * Resource route
+  *
+  */
+
+  Route::resource('/posts', PostController::class);
