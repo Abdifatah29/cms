@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// Basic routes
+Route::get('/', function () {  
     return view('welcome');
+});
+
+/**
+ * Match Routes
+*/
+$routes_methods = ['post', 'get', 'delete', 'put', 'option', 'patch'];
+Route::match($routes_methods, '/id/{id}', function($id)
+{
+    return $id;
+});
+
+/** 
+ * Dependency Injection Routes
+*/
+Route::get('/request', function(Request $request)
+{
+    var_dump($request);
+});
+
+
+/**
+ * Redirect Routes
+*/
+
+Route::redirect('/admins', '/admin');
+
+/**
+ * View Routes
+ */
+
+ Route::view('/user', 'user', ['userId' => 12]);
+
+
+ /**
+  * Required Parameters
+  */
+
+Route::get('/required/{id}', function($id)
+{
+    return 'Id: ' . $id;
 });
