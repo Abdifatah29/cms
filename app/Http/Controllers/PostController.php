@@ -84,4 +84,28 @@ class PostController extends Controller
     {
         //
     }
+
+
+    /**
+     * 
+     * Contact controller
+     * 
+     */
+
+     public function contact()
+     {
+        return view('contact');
+     }
+
+
+     /**
+      * 
+      * post controller method
+      *
+      */
+
+      public function show_post($id)
+      {
+        return view('post', compact('id'));
+      }
 }

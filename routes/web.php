@@ -85,3 +85,10 @@ Route::get('/required/{id}', function($id)
   */
 
   Route::resource('/posts', PostController::class);
+
+
+  //contact route return contact view
+
+  Route::get('/contact', [PostController::class, 'contact']);
+
+  Route::get('post/{id}', [PostController::class, 'show_post']);
