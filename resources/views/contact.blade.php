@@ -6,6 +6,10 @@
     <input type="text" name="contact" value="contact"/>
 </form>
 
+@foreach($people AS $person)
+    <p>This is user {{ $person }}</p>
+@endforeach
+
 @endsection()
 
 @section('footer')
