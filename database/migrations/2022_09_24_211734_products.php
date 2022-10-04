@@ -23,14 +23,14 @@ class Products extends Migration
             $table->string('name');
             $table->bigInteger('product_id')->unsigned();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); 
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             // Index
             $table->index('name');
             $table->index('created_at');
             $table->index('product_id');
 
-        });  
+        });
         /**
          * Products table
          */
@@ -40,8 +40,8 @@ class Products extends Migration
             $table->string('name');
             $table->bigInteger('shop_id')->unsigned();
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); 
-            $table->json('options'); 
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->json('options');
 
             // Indexes
             $table->index('name');
@@ -49,7 +49,7 @@ class Products extends Migration
             $table->index('shop_id');
 
             $table->foreign('shop_id')->references('id')->on('shops');
-        });    
+        });
     }
 
     /**
