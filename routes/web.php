@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 /*
@@ -16,7 +17,8 @@ use Illuminate\Http\Request;
 */
 
 // Basic routes
-Route::get('/', function () {  
+Route::get('/', function ()
+{
     return view('welcome');
 });
 
@@ -24,15 +26,15 @@ Route::get('/', function () {
  * Match Routes
 */
 $routes_methods = ['post', 'get', 'delete', 'put', 'option', 'patch'];
-Route::match($routes_methods, '/id/{id}', function($id)
+Route::match($routes_methods, '/id/{id}', function ($id)
 {
     return $id;
 });
 
-/** 
+/**
  * Dependency Injection Routes
 */
-Route::get('/request', function(Request $request)
+Route::get('/request', function (Request $request)
 {
     var_dump($request);
 });
@@ -55,7 +57,7 @@ Route::redirect('/admins', '/admin');
   * Required Parameters
   */
 
-Route::get('/required/{id}', function($id)
+Route::get('/required/{id}', function ($id)
 {
     return 'Id: ' . $id;
 });
@@ -69,9 +71,9 @@ Route::get('/required/{id}', function($id)
 
 
 /**
- * 
+ *
  * using Controllers with Routes
- * 
+ *
  */
 
  Route::get('/test/{postId}', [PostController::class, 'index']);
@@ -79,7 +81,7 @@ Route::get('/required/{id}', function($id)
 
 
  /**
-  * 
+  *
   * Resource route
   *
   */
@@ -92,3 +94,46 @@ Route::get('/required/{id}', function($id)
   Route::get('/contact', [PostController::class, 'contact']);
 
   Route::get('post/{id}', [PostController::class, 'show_post']);
+
+
+    /**
+     * RAW sql Insert
+    */
+
+    Route::get('/insert', function ()
+    {
+        DB::insert('insert into posts (title, body) values(?,?)', ['Afrax', 'Kheylow']);
+    });
+
+    /**
+     * RAW sql Select
+    */
+
+    Route::get('select', function ()
+    {
+        $results = DB::select("SELECT * FROM posts WHERE id = ?", [1]);
+
+        foreach ($results as $result) {
+            return $result->title;
+        }
+    });
+
+    /**
+     * RAW sql update
+    */
+
+    Route::get('update', function ()
+    {
+        $update = DB::update("UPDATE posts SET title ='Shukri' WHERE id = ?", [2]);
+        $update = DB::update("UPDATE posts SET body = 'Cabdullahi' WHERE id = ?", [2]);
+        return $update;
+    });
+
+    /**
+     * RAW sql delete
+    */
+
+    Route::get('delete/{id}', function ($id)
+    {
+        return DB::delete('DELETE FROM posts where id = ?', [$id]);
+    });
