@@ -4,7 +4,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use App\Models\Posts;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,7 +102,7 @@ Route::get('/required/{id}', function ($id)
 
     Route::get('/insert', function ()
     {
-        DB::insert('insert into posts (title, body) values(?,?)', ['Afrax', 'Kheylow']);
+        DB::insert('insert into posts (title, body) values(?,?)', ['Shukri', 'Faras']);
     });
 
     /**
@@ -137,3 +137,31 @@ Route::get('/required/{id}', function ($id)
     {
         return DB::delete('DELETE FROM posts where id = ?', [$id]);
     });
+
+
+
+    /**
+     * ELOQUENT ORM - Object Relational Model
+     */
+
+     // get multiple
+     Route::get('/read', function ()
+    {
+        $posts = Posts::all();
+
+        foreach ($posts as $post) {
+            var_dump($post);
+            return $post->title;
+        }
+
+    });
+
+
+//get single
+
+
+Route::get('/findwhere', function()
+{
+    $post = Posts::where('id', 2)->orderBy('id', 'desc')->take(1)->get();
+    return $post;
+});
