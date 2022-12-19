@@ -165,3 +165,32 @@ Route::get('/findwhere', function()
     $post = Posts::where('id', 2)->orderBy('id', 'desc')->take(1)->get();
     return $post;
 });
+
+//retriving data
+Route::get('/findmore', function(Type $var = null)
+{
+    $posts = Posts::where('id', '>', 1)->firstOrFail();
+    return $posts;
+});
+
+// Inserting data
+
+Route::get('basicInsert', function (){
+    $post = new Posts();
+    $post->title = 'Hooyo';
+    $post->body = 'macaan';
+    $post->save();
+});
+
+Route::get('basicUpdate', function (){
+    $post = Posts::find('2');
+    $post->body = 'Cabdulahi';
+    $post->save();
+});
+
+// create with ORM
+
+Route::get('create', function(){
+    $post = Posts::create(['title'=>'James', 'body' => 'Bond']);
+    return $post;
+});
