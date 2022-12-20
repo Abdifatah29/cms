@@ -194,3 +194,23 @@ Route::get('create', function(){
     $post = Posts::create(['title'=>'James', 'body' => 'Bond']);
     return $post;
 });
+
+// Updating ORM
+
+Route::get('basicUpdate', function(){
+    $post = Posts::where('id', 2)->where('created_at', null)->update(['title'=>'Danie']);
+    return $post;
+});
+
+
+// Deleting ORM
+
+Route::get('basicDelete', function(){
+    $post = Posts::find(4)->delete();
+});
+
+// Deleting multiple
+
+Route::get('deleteMulti', function(){
+    $post = Posts::destroy([2,5]);
+});
