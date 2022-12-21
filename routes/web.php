@@ -214,3 +214,10 @@ Route::get('basicDelete', function(){
 Route::get('deleteMulti', function(){
     $post = Posts::destroy([2,5]);
 });
+
+
+// deleted at
+
+Route::get('softDelete', function(){
+   Posts::find(3)->delete();
+});
